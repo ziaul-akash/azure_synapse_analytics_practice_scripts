@@ -1,0 +1,17 @@
+{
+	"name": "02_create_external_tables",
+	"properties": {
+		"content": {
+			"query": "\n\n-- CREATE EXTERNAL TABLE\n--------------------------------\n\nCREATE EXTERNAL TABLE revenue_external_table\n(\n\tDealer_ID VARCHAR(4000),\n\tModel_ID VARCHAR(4000),\n\tBranch_ID VARCHAR(4000),\n\tDate_ID VARCHAR(4000),\n\tUnits_Sold VARCHAR(4000),\n\tRevenue VARCHAR(4000)\n)\nWITH\n(\n\tLOCATION = 'revenue',\n\tDATA_SOURCE= raw_external_data_source,\n\tFILE_FORMAT= csv_file_format\n)\n\nSELECT * FROM revenue_external_table",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "synapse_serverless_database",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

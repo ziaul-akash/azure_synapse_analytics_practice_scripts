@@ -1,0 +1,17 @@
+{
+	"name": "08_COPY INTO",
+	"properties": {
+		"content": {
+			"query": "---------------\n-----------COPY INTO\n----------------------------\n--We are creating one table in dedicated sql pool and copying our parquet file from data lake storage account to that created table\n\nCREATE TABLE copy_into_table(\n   Dealer_ID VARCHAR(4000),\n\tModel_ID VARCHAR(4000),\n\tBranch_ID VARCHAR(4000),\n\tDate_ID VARCHAR(4000),\n\tUnits_Sold BIGINT,\n\tRevenue BIGINT\n)\nWITH\n(\n    DISTRIBUTION = ROUND_ROBIN\n);\n\n\n--LOADING DATA\n---------------------------\n\nCOPY INTO copy_into_table\n(\n\tDealer_ID 1,\n\tModel_ID 2,\n\tBranch_ID 3,\n\tDate_ID 4,\n\tUnits_Sold 5,\n\tRevenue 6\n)\nFROM 'https://synapseprivatedl.dfs.core.windows.net/raw/revenue_cetas/697ED7B9-64FD-4C3E-A0A5-33C827F9124B_11_0-1.parquet'\nWITH\n(\n\tFILE_TYPE= 'PARQUET',\n\tCREDENTIAL = (IDENTITY = 'Managed Identity')\n)\n\nSELECT TOP 10 * FROM copy_into_table;\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "azure_synapse_sql_pool_test",
+				"poolName": "azure_synapse_sql_pool_test"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

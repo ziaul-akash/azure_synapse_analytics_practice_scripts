@@ -1,0 +1,17 @@
+{
+	"name": "03_CETAS_script",
+	"properties": {
+		"content": {
+			"query": "\n\n-- CREATE CETAS\n------------------------\n\nCREATE EXTERNAL TABLE revenue_cetas_file\nWITH\n(\n    LOCATION = 'revenue_cetas',\n    DATA_SOURCE = raw_external_data_source,\n    FILE_FORMAT = parquet_file_format\n\n)\nAS\nSELECT * FROM \nOPENROWSET(\n    BULK 'revenue',\n    DATA_SOURCE = 'raw_external_data_source',\n    FORMAT = 'CSV',\n    HEADER_ROW= TRUE,\n    PARSER_VERSION = '2.0'\n) AS query01 \n\n\n\nSELECT * FROM revenue_cetas_file",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "synapse_serverless_database",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

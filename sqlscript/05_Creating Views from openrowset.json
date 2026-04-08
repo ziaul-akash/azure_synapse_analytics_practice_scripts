@@ -1,0 +1,17 @@
+{
+	"name": "05_Creating Views from openrowset",
+	"properties": {
+		"content": {
+			"query": "\n\n--CREATE VIEWS\n--------------------------\n\nCREATE VIEW revenue_view\nAS\nSELECT * FROM \nOPENROWSET(\n    BULK 'revenue',\n    DATA_SOURCE = 'raw_external_data_source',\n    FORMAT = 'CSV',\n    HEADER_ROW= TRUE,\n    PARSER_VERSION = '2.0'\n) AS query01 \n\n\nSELECT * FROM revenue_view",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "synapse_serverless_database",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

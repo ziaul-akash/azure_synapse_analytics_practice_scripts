@@ -1,0 +1,17 @@
+{
+	"name": "09_POLYBASE_CTAS_dedicated_sql_pool",
+	"properties": {
+		"content": {
+			"query": "\n\n-- POLYBASE CTAS\n-- we are trying to create an external table of a query. first we will select a file , query it by openrowset,\n--  CETAS automatically copy this file to another location and put an external layer on top of that copied file\n\n-- over here what has been done is we created an external table from parquet file inside revenue_cetas folder \n-- and we created one real able, and copied data from external table to real table\n\nCREATE EXTERNAL TABLE revenue_polybase_table\n(\n    Dealer_ID VARCHAR(4000),\n\tModel_ID VARCHAR(4000),\n\tBranch_ID VARCHAR(4000),\n\tDate_ID VARCHAR(4000),\n\tUnits_Sold BIGINT,\n\tRevenue BIGINT\n)\nWITH\n(\n    Location= 'revenue_cetas',\n    DATA_SOURCE= raw_external_data_source_abfss,\n    FILE_FORMAT= parquet_file_format\n  \n)\n\n\n-- CREATE POLYBASE\n\nCREATE TABLE poly_table\nWITH\n(\n    DISTRIBUTION = ROUND_ROBIN\n)\nAS\nSELECT * FROM revenue_polybase_table\n\n\n\n\nSELECT TOP 10 * FROM poly_table;\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "azure_synapse_sql_pool_test",
+				"poolName": "azure_synapse_sql_pool_test"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
