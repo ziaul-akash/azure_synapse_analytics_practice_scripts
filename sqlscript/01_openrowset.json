@@ -1,0 +1,17 @@
+{
+	"name": "01_openrowset",
+	"properties": {
+		"content": {
+			"query": "\n-- #CREATE MASTER KEY\n-----------------------------\n\nCREATE MASTER KEY ENCRYPTION BY PASSWORD = 'Dataengineer6858@'\n\n\n\n-- #CREATE CREDENTIAL\n---------------------------------\n\nCREATE DATABASE SCOPED CREDENTIAL azureSynapseCred\nWITH\n    IDENTITY = 'Managed Identity'\n\n\n-- #CREATE EXTERNAL DATA SOURCE\n--------------------------------------\n\nCREATE EXTERNAL DATA SOURCE raw_external_data_source\nWITH\n(\n    LOCATION = 'https://synapseprivatedl.dfs.core.windows.net/raw/',\n    CREDENTIAL = azureSynapseCred\n)\n\n-- #OPENROWSET FUNCTION\n--------------------------------------\n\nSELECT * FROM \nOPENROWSET(\n    BULK 'revenue',\n    DATA_SOURCE = 'raw_external_data_source',\n    FORMAT = 'CSV',\n    HEADER_ROW= TRUE,\n    PARSER_VERSION = '2.0'\n) AS query01 \n\n\n-- CREATE EXTERNAL FILE FORMAT\nCREATE EXTERNAL FILE FORMAT csv_file_format\nWITH\n(\n    FORMAT_TYPE = DELIMITEDTEXT,\n    FORMAT_OPTIONS(\n        FIELD_TERMINATOR= ''\n       \n    )\n)\n\n\n--Create an external file format for PARQUET files.\nCREATE EXTERNAL FILE FORMAT parquet_file_format\nWITH (\n         FORMAT_TYPE = PARQUET,\n         DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'   \n    );\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "synapse_serverless_database",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

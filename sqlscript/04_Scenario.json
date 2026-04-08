@@ -1,0 +1,17 @@
+{
+	"name": "04_Scenario",
+	"properties": {
+		"content": {
+			"query": "\n-- CREATING SCENARIO \n-- -- If the location doesn't exist then it will create the external table but it can not read \n-- the data until in the storage account that folder name and inside that any file exists\n\nCREATE EXTERNAL TABLE revenue_table_scenario\n(\n\tDealer_ID VARCHAR(4000),\n\tModel_ID VARCHAR(4000),\n\tBranch_ID VARCHAR(4000),\n\tDate_ID VARCHAR(4000),\n\tUnits_Sold VARCHAR(4000),\n\tRevenue VARCHAR(4000)\n)\nWITH\n(\n\tLOCATION = 'revenue_scenario',\n\tDATA_SOURCE= raw_external_data_source,\n\tFILE_FORMAT= csv_file_format\n)\n\nSELECT * FROM revenue_table_scenario",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "synapse_serverless_database",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

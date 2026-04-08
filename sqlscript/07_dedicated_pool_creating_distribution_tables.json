@@ -1,0 +1,17 @@
+{
+	"name": "07_dedicated_pool_creating_distribution_tables",
+	"properties": {
+		"content": {
+			"query": "-- ROUND ROBIN DISTRIBUTION\n---------------------------------\n\nCREATE SCHEMA bronze;\nGO\n\nCREATE TABLE bronze.round_robin_table(\n    id INT,\n    name VARCHAR(200),\n    age INT\n)\nWITH\n(\n    DISTRIBUTION = ROUND_ROBIN\n);\n\nINSERT INTO bronze.round_robin_table (id, name, age)\nVALUES (1, 'akash', 32);\n\nSELECT * FROM bronze.round_robin_table\n\n\n--REPLICATE DISTRIBUTION\n---------------------------------\n\nCREATE TABLE bronze.replicate_table(\n    id INT,\n    name VARCHAR(200),\n    age INT\n)\nWITH\n(\n    DISTRIBUTION = REPLICATE\n);\n\n\n--HASH DISTRIBUTION\n---------------------------------\n\nCREATE TABLE bronze.hash_table(\n    id INT,\n    name VARCHAR(200),\n    age INT\n)\nWITH\n(\n    DISTRIBUTION = HASH(id)\n);",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "azure_synapse_sql_pool_test",
+				"poolName": "azure_synapse_sql_pool_test"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
