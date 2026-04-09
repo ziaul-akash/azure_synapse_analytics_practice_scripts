@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "azure-synapse-workspace-1"
+		},
+		"azure-synapse-workspace-1-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:azure-synapse-workspace-1.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"azuresynapseakash-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:azuresynapseakash.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"azure-synapse-workspace-1-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://synapsemanageddl.dfs.core.windows.net"
+		},
+		"azuresynapseakash-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://synapseprivatedl.dfs.core.windows.net"
+		},
+		"ls_external_storage_account_properties_typeProperties_url": {
+			"value": "https://synapseprivatedl.dfs.core.windows.net/"
+		}
+	}
+}
